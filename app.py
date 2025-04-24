@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-import difflib  # Para coincidencias aproximadas
 
 archivo_csv = "BASE_DATOS.csv"
 
@@ -17,28 +16,28 @@ else:
         df['COSTO'] = pd.to_numeric(df['COSTO'], errors='coerce')
         df = df.dropna(subset=['CANTIDAD ENTREGADO', 'COSTO'])
 
-        nombre_trabajador = st.sidebar.text_input("Ingrese trabajador a consultar:", "")
+        # Entrada de texto para buscar trabajador
+        texto_busqueda = st.sidebar.text_input("Buscar parte del nombre del trabajador:", "").strip().upper()
 
-        df_filtrado = pd.DataFrame()
+        # Obtener nombres únicos que contienen el texto ingresado
+        nombres_filtrados = sorted([nombre for nombre in df['NOMBRE'].dropna().unique() if texto_busqueda in nombre.upper()])
 
-        if nombre_trabajador:
-            # Lista de nombres únicos
-            nombres = df['NOMBRE'].dropna().unique().tolist()
+        # Mostrar dropdown solo si hay coincidencias
+        nombre_seleccionado = None
+        if nombres_filtrados:
+            nombre_seleccionado = st.sidebar.selectbox("Seleccione el nombre exacto:", nombres_filtrados)
+        elif texto_busqueda:
+            st.sidebar.info("No se encontraron coincidencias.")
 
-            # Buscar los nombres más similares
-            coincidencias = difflib.get_close_matches(nombre_trabajador.upper(), nombres, n=10, cutoff=0.4)
-
-            if coincidencias:
-                df_filtrado = df[
-                    (df['NOMBRE'].isin(coincidencias)) & (df['CANTIDAD ENTREGADO'] > 0)
-                ]
-                df_filtrado['COSTO TOTAL'] = df_filtrado['CANTIDAD ENTREGADO'] * df_filtrado['COSTO']
-                st.subheader(f"Resultados aproximados para: {nombre_trabajador}")
-                st.dataframe(df_filtrado[['NOMBRE', 'HERRAMIENTA', 'CANTIDAD ENTREGADO', 'FECHA ASIGNACION', 'COSTO', 'COSTO TOTAL']])
-            else:
-                st.info(f"No se encontraron coincidencias para: '{nombre_trabajador}'.")
+        if nombre_seleccionado:
+            df_filtrado = df[
+                (df['NOMBRE'] == nombre_seleccionado) & (df['CANTIDAD ENTREGADO'] > 0)
+            ]
+            df_filtrado['COSTO TOTAL'] = df_filtrado['CANTIDAD ENTREGADO'] * df_filtrado['COSTO']
+            st.subheader(f"Resultados para: {nombre_seleccionado}")
+            st.dataframe(df_filtrado[['NOMBRE', 'HERRAMIENTA', 'CANTIDAD ENTREGADO', 'FECHA ASIGNACION', 'COSTO', 'COSTO TOTAL']])
         else:
-            st.info("Ingrese un nombre en la barra lateral para buscar herramientas asignadas.")
+            st.info("Ingrese parte del nombre para mostrar coincidencias.")
 
     except Exception as e:
         st.error(f"⚠️ Error al procesar los datos:\n{e}")
