@@ -3,7 +3,8 @@ import streamlit as st
 import os
 
 # Ruta del archivo CSV
-archivo_csv = r"C:\Users\carlo\OneDrive - SOMYL S.A\CARGOS\BASE_DATOS.csv"
+archivo_csv = "BASE_DATOS.csv"
+
 
 if not os.path.exists(archivo_csv):
     st.error(f"❌ El archivo no fue encontrado en la ruta:\n{archivo_csv}")
