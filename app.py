@@ -94,14 +94,13 @@ else:
                 pdf.cell(0, 10, "NOMBRE, FIRMA Y RUT DEL TRABAJADOR: ____________________", ln=True)
 
                 # Descargar PDF
-                pdf_output = BytesIO()
-                pdf.output(pdf_output)
+                pdf_bytes = pdf.output(dest='S').encode('latin1')
                 st.download_button(
                     label="📥 Descargar PDF",
-                    data=pdf_output.getvalue(),
+                    data=pdf_bytes,
                     file_name=f"cargos_{nombre_seleccionado.replace(' ', '_')}.pdf",
                     mime="application/pdf"
-                )
+)               
         else:
             st.info("Ingrese parte del nombre para mostrar coincidencias.")
 
