@@ -4,6 +4,16 @@ import os
 from io import BytesIO
 from fpdf import FPDF
 from datetime import datetime
+import locale
+
+# Configurar idioma español para fechas
+try:
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')  # Linux/macOS
+except:
+    try:
+        locale.setlocale(locale.LC_TIME, 'Spanish_Spain')  # Windows
+    except:
+        pass  # En caso de que no funcione, usará el formato por defecto
 
 archivo_csv = "BASE_DATOS.csv"
 
@@ -43,17 +53,31 @@ else:
             columnas_a_mostrar = ['HERRAMIENTA', 'CANTIDAD ENTREGADO', 'FECHA ASIGNACION', 'COSTO', 'COSTO TOTAL']
             st.dataframe(df_filtrado[columnas_a_mostrar])
 
-            # 👉 Exportar a PDF con diseño tipo modelo
+            # 👉 Exportar a PDF con diseño tipo modelo + logo + fecha asignación
             if st.button("📄 Exportar a PDF"):
                 pdf = FPDF()
                 pdf.add_page()
+
+                # --- Logo ---
+                logo_path = "logo somyl.png"
+                if os.path.exists(logo_path):
+                    pdf.image(logo_path, x=10, y=8, w=30)
+
                 pdf.set_font("Arial", "B", 14)
                 pdf.cell(0, 10, "ENTREGA DE CARGOS SOMYL", ln=True, align="C")
-                pdf.ln(10)
+                pdf.ln(20)
+
+                # Obtener fecha de entrega en español
+                fecha_entrega = df_filtrado.iloc[0]['FECHA ASIGNACION']
+                try:
+                    fecha_dt = pd.to_datetime(fecha_entrega, dayfirst=True)
+                    fecha_es = fecha_dt.strftime('%A, %d de %B de %Y').capitalize()
+                except:
+                    fecha_es = fecha_entrega
 
                 pdf.set_font("Arial", "", 11)
                 pdf.cell(0, 10, f"NOMBRE DE TRABAJADOR: {nombre_seleccionado}", ln=True)
-                pdf.cell(0, 10, f"FECHA DE ENTREGA: {datetime.today().strftime('%A, %d de %B de %Y')}", ln=True)
+                pdf.cell(0, 10, f"FECHA DE ENTREGA: {fecha_es}", ln=True)
                 pdf.ln(10)
 
                 # Tabla
@@ -74,7 +98,7 @@ else:
 
                 pdf.ln(10)
 
-                # Texto de compromiso
+                # Texto compromiso
                 pdf.set_font("Arial", "", 10)
                 texto_compromiso = (
                     "Declaro haber recibido el equipo detallado anteriormente, en las condiciones señaladas y con todos sus accesorios y, "
@@ -100,7 +124,7 @@ else:
                     data=pdf_bytes,
                     file_name=f"cargos_{nombre_seleccionado.replace(' ', '_')}.pdf",
                     mime="application/pdf"
-                )               
+                )
         else:
             st.info("Ingrese parte del nombre para mostrar coincidencias.")
 
