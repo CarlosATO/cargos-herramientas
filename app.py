@@ -100,7 +100,7 @@ else:
                     data=pdf_bytes,
                     file_name=f"cargos_{nombre_seleccionado.replace(' ', '_')}.pdf",
                     mime="application/pdf"
-)               
+                )               
         else:
             st.info("Ingrese parte del nombre para mostrar coincidencias.")
 
