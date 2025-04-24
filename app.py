@@ -64,7 +64,7 @@ else:
                     pdf.image(logo_path, x=10, y=8, w=30)
 
                 pdf.set_font("Arial", "B", 14)
-                pdf.cell(0, 10, "ENTREGA DE CARGOS SOMYL", ln=True, align="C")
+                pdf.cell(0, 10, "INFORME DE CARGOS ASIGNADOS POR SOMYL", ln=True, align="C")
                 pdf.ln(20)
 
                 # Fecha de entrega desde el primer registro
@@ -82,40 +82,36 @@ else:
 
                 # Tabla
                 pdf.set_font("Arial", "B", 11)
-                pdf.cell(60, 8, "HERRAMIENTA O EPP", border=1)
-                pdf.cell(30, 8, "CANTIDAD", border=1)
-                pdf.cell(40, 8, "COSTO", border=1)
+                pdf.cell(50, 8, "HERRAMIENTA O EPP", border=1)
+                pdf.cell(20, 8, "CANT", border=1)
+                pdf.cell(35, 8, "FECHA", border=1)
+                pdf.cell(35, 8, "COSTO", border=1)
                 pdf.cell(50, 8, "COSTO TOTAL", border=1)
                 pdf.ln()
 
                 pdf.set_font("Arial", "", 11)
                 for _, row in df_filtrado.iterrows():
-                    pdf.cell(60, 8, str(row['HERRAMIENTA']), border=1)
-                    pdf.cell(30, 8, str(int(row['CANTIDAD ENTREGADO'])), border=1)
-                    pdf.cell(40, 8, str(row['COSTO']), border=1)
+                    pdf.cell(50, 8, str(row['HERRAMIENTA']), border=1)
+                    pdf.cell(20, 8, str(int(row['CANTIDAD ENTREGADO'])), border=1)
+                    pdf.cell(35, 8, str(row['FECHA ASIGNACION']), border=1)
+                    pdf.cell(35, 8, str(row['COSTO']), border=1)
                     pdf.cell(50, 8, str(row['COSTO TOTAL']), border=1)
                     pdf.ln()
-
-                pdf.ln(10)
+                pdf.ln()
 
                 # Texto compromiso
                 pdf.set_font("Arial", "", 10)
                 texto_compromiso = (
-                    "Declaro haber recibido el equipo detallado anteriormente, en las condiciones señaladas y con todos sus accesorios y, "
-                    "me comprometo a cuidarlos y utilizarlos correctamente, exclusivamente, para las actividades que son asignadas o devienen de "
-                    "la labor que cumplo dentro de la empresa. Me comprometo a devolverlo cuando tenga que dejar mi cargo o servicio, independientemente del motivo. "
-                    "En caso de avería por mal uso del equipo o herramienta asignado, asumo las responsabilidades por el costo del equipo menos la depreciación del mismo a la fecha. "
-                    "En caso de hurto o robo, me comprometo a entregar a RRHH la denuncia a carabineros o PDI. Si esta no es presentada en un lapso de 3 días hábiles, "
-                    "me hago responsable por el costo del equipo menos la depreciación. "
-                    "En caso de hacer uso de licencia médica, el empleador podrá solicitar la devolución temporal o definitiva del equipo asignado."
-                )
+                    "Las herramientas y cargos que aparecen en este informe, representan a aquellas informadas y registradas previamnte por SOMYL S.A., "
+                    "ante cualquier desconocimiento o diferencia, favor inforomar a su jefe direco o RR.HH SOMYL S.A. "         
+                    )   
                 pdf.multi_cell(0, 8, texto_compromiso)
                 pdf.ln(10)
 
                 # Firmas
-                pdf.cell(0, 10, "NOMBRE Y FIRMA RRHH: __________________________________", ln=True)
-                pdf.cell(0, 10, "NOMBRE Y FIRMA BODEGA SOMYL: ___________________________", ln=True)
-                pdf.cell(0, 10, "NOMBRE, FIRMA Y RUT DEL TRABAJADOR: ____________________", ln=True)
+                #pdf.cell(0, 10, "NOMBRE Y FIRMA RRHH: __________________________________", ln=True)
+                #pdf.cell(0, 10, "NOMBRE Y FIRMA BODEGA SOMYL: ___________________________", ln=True)
+                #pdf.cell(0, 10, "NOMBRE, FIRMA Y RUT DEL TRABAJADOR: ____________________", ln=True)
 
                 # Descargar PDF
                 pdf_bytes = pdf.output(dest='S').encode('latin1')
