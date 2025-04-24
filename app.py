@@ -20,8 +20,8 @@ import os
 # Ruta del archivo CSV
 archivo_csv = "BASE_DATOS.csv"
 
-st.title("🔍 CARGOS ASIGNADOS SOMYL S.A.")
-st.subheader("Ingrese nombre de trabajador.")
+st.title("🔍 CARGOS ASIGNADOS SOMYL S.A.") # Titulo
+st.subheader("Registros encontrados.") # Datos encontrados
 
 if not os.path.exists(archivo_csv):
     st.error(f"❌ El archivo no fue encontrado en la ruta:\n{archivo_csv}")
@@ -38,7 +38,7 @@ else:
         df = df.dropna(subset=['CANTIDAD ENTREGADO', 'COSTO'])
 
         # Filtro por nombre del trabajador en la barra lateral
-        nombre_trabajador = st.sidebar.text_input("Buscar por nombre del trabajador:", "")
+        nombre_trabajador = st.sidebar.text_input("Ingrese trabajador a consultar:", "")
 
         df_filtrado = pd.DataFrame()  # Inicializamos un DataFrame vacío
 
