@@ -13,7 +13,7 @@ except:
     try:
         locale.setlocale(locale.LC_TIME, 'Spanish_Spain')  # Windows
     except:
-        pass  # En caso de que no funcione, usará el formato por defecto
+        pass
 
 archivo_csv = "BASE_DATOS.csv"
 
@@ -53,12 +53,12 @@ else:
             columnas_a_mostrar = ['HERRAMIENTA', 'CANTIDAD ENTREGADO', 'FECHA ASIGNACION', 'COSTO', 'COSTO TOTAL']
             st.dataframe(df_filtrado[columnas_a_mostrar])
 
-            # 👉 Exportar a PDF con diseño tipo modelo + logo + fecha asignación
+            # 👉 Exportar a PDF con logo + fecha en español
             if st.button("📄 Exportar a PDF"):
                 pdf = FPDF()
                 pdf.add_page()
 
-                # --- Logo ---
+                # Logo
                 logo_path = "logo somyl.png"
                 if os.path.exists(logo_path):
                     pdf.image(logo_path, x=10, y=8, w=30)
@@ -67,7 +67,7 @@ else:
                 pdf.cell(0, 10, "ENTREGA DE CARGOS SOMYL", ln=True, align="C")
                 pdf.ln(20)
 
-                # Obtener fecha de entrega en español
+                # Fecha de entrega desde el primer registro
                 fecha_entrega = df_filtrado.iloc[0]['FECHA ASIGNACION']
                 try:
                     fecha_dt = pd.to_datetime(fecha_entrega, dayfirst=True)
