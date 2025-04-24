@@ -20,8 +20,8 @@ import os
 # Ruta del archivo CSV
 archivo_csv = "BASE_DATOS.csv"
 
-st.title("🔍 Herramientas Asignadas por Trabajador")
-st.subheader("Ingrese el nombre del trabajador para ver las herramientas asignadas.")
+st.title("🔍 CARGOS ASIGNADOS SOMYL S.A.")
+st.subheader("Ingrese nombre de trabajador.")
 
 if not os.path.exists(archivo_csv):
     st.error(f"❌ El archivo no fue encontrado en la ruta:\n{archivo_csv}")
