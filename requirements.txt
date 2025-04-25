@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 streamlit
 pandas
 fpdf
-=======
+
 streamlit
 pandas
 fpdf
->>>>>>> 8c3ba40e0b079bd3971fd6fc39758bc8ed86bf80
+
