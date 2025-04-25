@@ -1,7 +1,9 @@
 [theme]
 base="light"
-[theme]
-base="light"  # o "dark" si prefieres
+primaryColor="#262730"
+secondaryColor="#E83945"
+textColor="#31333F"
+backgroundColor="#F5F5DC"
 
 [server]
 enableXsrfProtection = false
@@ -15,7 +17,3 @@ showSidebarNavigation = false
 [ui]
 hideMenu = true
 hideFooter = true
-primaryColor="#262730"
-secondaryColor="#E83945"
-textColor="#31333F"
-backgroundColor="#F5F5DC"
