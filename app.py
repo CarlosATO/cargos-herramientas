@@ -12,8 +12,6 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
-
-
 import pandas as pd
 import os
 from io import BytesIO
