@@ -1,4 +1,13 @@
 import streamlit as st
+import pandas as pd
+import os
+from fpdf import FPDF
+from datetime import datetime
+import locale
+import math
+
+# Configuración de página completa
+st.set_page_config(layout="wide")
 
 # Bloquear el menú de configuración, el footer y el header
 st.markdown("""
@@ -31,15 +40,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Tu código de aplicación a partir de aquí ---
-import pandas as pd
-import os
-from fpdf import FPDF
-from datetime import datetime
-import locale
-import math
-
-# Configuración de página completa
-st.set_page_config(layout="wide")
 
 # CSS personalizado para la estructura general
 st.markdown("""
