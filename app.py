@@ -8,6 +8,31 @@ import math
 
 # Configuración de página completa
 st.set_page_config(layout="wide")
+# Bloquear el menú de configuración, el footer y el header
+st.markdown("""
+    <style>
+    /* Ocultar visualmente */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+
+    /* Bloquear por completo interacción */
+    body {
+        overflow: hidden;
+    }
+    [data-testid="stToolbar"] {
+        display: none !important;
+    }
+    [data-testid="stDecoration"] {
+        display: none !important;
+    }
+
+    [data-testid="collapsedControl"] {
+        display: none !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # CSS personalizado
 st.markdown("""
