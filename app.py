@@ -27,11 +27,7 @@ st.markdown("""
     [data-testid="stDecoration"] {
         display: none !important;
     }
-    [data-testid="stSidebarNav"] {
-        pointer-events: none;
-    }
-    [data-testid="stSidebar"] {
-        pointer-events: none;
+    
     }
     [data-testid="collapsedControl"] {
         display: none !important;
