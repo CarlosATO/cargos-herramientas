@@ -1,4 +1,13 @@
 import streamlit as st
+
+# Ocultar menú y footer
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
 import pandas as pd
 import os
 from fpdf import FPDF
