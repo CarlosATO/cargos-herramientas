@@ -1,19 +1,11 @@
 [theme]
 base = "light"
 primaryColor = "#262730"
-secondaryColor = "#E83945"
-textColor = "#31333F"
 backgroundColor = "#F5F5DC"
+textColor = "#31333F"
 
 [server]
 enableXsrfProtection = false
 
 [browser]
 gatherUsageStats = false
-
-[client]
-showSidebarNavigation = false
-
-[ui]
-hideMenu = true
-hideFooter = true
