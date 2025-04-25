@@ -14,7 +14,7 @@ showSidebarNavigation = false
 
 [ui]
 hideMenu = true
-hideFooter = tru
+hideFooter = true
 primaryColor="#262730"
 secondaryColor="#E83945"
 textColor="#31333F"
