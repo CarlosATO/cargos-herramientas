@@ -1,4 +1,19 @@
+
 import streamlit as st
+
+# Ocultar menú y footer
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+
+
 import pandas as pd
 import os
 from io import BytesIO
